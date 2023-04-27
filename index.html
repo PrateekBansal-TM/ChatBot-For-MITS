@@ -1,90 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Chatbot Website</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Input and Output Responses</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<style>
-		/* Add styles for your website here */
+		.column {
+			float: left;
+			width: 50%;
+			padding: 10px;
+		}
+
+		.row::after {
+			content: "";
+			clear: both;
+			display: table;
+		}
 	</style>
 </head>
 <body>
-	<h1>Chatbot Website</h1>
-	<p>Welcome to our chatbot website. Ask me anything!</p>
-	
-	<!-- Add a form for the user to enter their input -->
-	<form>
-		<input type="text" id="userInput" placeholder="Enter your message">
-		<input type="button" value="Send" onclick="getResponse()">
-	</form>
-	
-	<!-- Add a container for the chatbot's responses -->
-	<div id="chatbotResponse"></div>
-	
-	<script>
-		// Define a function to handle the bot's responses
-		function getResponse() {
-			// Get the user's input
-			var userInput = document.getElementById("userInput").value;
-			
-			// Send the input to the server
-			var xhttp = new XMLHttpRequest();
-			xhttp.onreadystatechange = function() {
-				if (this.readyState == 4 && this.status == 200) {
-					// Get the response from the server
-					var response = this.responseText;
-					
-					// Display the response in the chatbotResponse container
-					document.getElementById("chatbotResponse").innerHTML += "<p><strong>Chatbot:</strong> " + response + "</p>";
-					
-					// Clear the user input
-					document.getElementById("userInput").value = "";
-				}
-			};
-			xhttp.open("POST", "/getResponse", true);
-			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-			xhttp.send("userInput=" + userInput);
-		}
-	</script>
-	
-	<!-- import random
 
-# Define a dictionary of responses for the bot to choose from
-responses = {
-    "hi": ["Hello!", "Hi there!", "Hey!"],
-    "how are you": ["I'm good, thanks for asking!", "I'm doing well, how about you?"],
-    "what's your name": ["My name is Chatbot, nice to meet you!"],
-    "bye": ["Goodbye!", "Bye! Take care!"],
-    "default": ["Sorry, I don't understand. Can you please rephrase?", "I'm not sure what you mean."],
-    "mits": ["Madhav Institute of Technology and Science, Gwalior."],
-}
+	<div class="row">
+		<div class="column">
+			<h2>Input Responses</h2>
+			<input type="text" id="input" name="input">
+		</div>
+		<div class="column">
+			<h2>Output Responses</h2>
+			<p id="output"></p>
+		</div>
+	</div>
 
-# Define a function to handle user input and generate bot responses
-def respond(user_input):
-    for key in responses:
-        if key in user_input.lower():
-            return random.choice(responses[key])
-    return random.choice(responses["default"])
-
-# Define a function to start the chatbot
-def start_chatbot():
-    print("Hello! I'm a chatbot. How can I assist you today?")
-    while True:
-        user_input = input("> ")
-        if user_input.lower() == "exit":
-            break
-        bot_response = respond(user_input)
-        print(bot_response)
-
-# Call the start_chatbot function to begin the conversation
-start_chatbot()
- -->
-	<?php
-		if ($_SERVER["REQUEST_METHOD"] == "POST") {
-			$user_input = $_POST["userInput"];
-			exec("python chatbot.py " . escapeshellarg($user_input), $output, $return);
-			echo $output[0];
-		}
-	?>
 </body>
 </html>
