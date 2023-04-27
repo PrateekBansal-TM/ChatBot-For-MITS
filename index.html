@@ -89,52 +89,48 @@
 
 	<script>
 		function sendMessage() {
-    var userMessage = document.getElementById("user-message").value;
-    var responseContainer = document.getElementById("response-container");
-    var time = new Date().toLocaleTimeString();
+  var userMessage = document.getElementById("user-message").value;
+  var responseContainer = document.getElementById("response-container");
+  var time = new Date().toLocaleTimeString();
 
-    var userBubble = document.createElement("div");
-    userBubble.innerHTML = userMessage;
-    userBubble.className = "container";
-    userBubble.style.backgroundColor = "#dcf8c6";
-    userBubble.style.float = "right";
-    userBubble.style.textAlign = "right";
-    userBubble.style.marginRight = "10px";
-    userBubble.style.marginLeft = "50%";
-    userBubble.style.transform = "translate(-50%)";
+  // Array of random greeting responses
+  var greetings = ["Hello!", "Hi there!", "Greetings!", "Hey!"];
 
-    var timeSpan = document.createElement("span");
-    timeSpan.innerHTML = time;
-    timeSpan.className = "time-left";
+  // Select a random greeting from the array
+  var randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
 
-    userBubble.appendChild(timeSpan);
-    responseContainer.appendChild(userBubble);
+  // Create a new message bubble for the user's message
+  var userBubble = `
+    <div class="container">
+      <img src="https://upload.wikimedia.org/wikipedia/en/d/d6/Madhav_Institute_of_Technology_and_Science_logo.png" alt="Avatar">
+      <p>${userMessage}</p>
+      <span class="time-right">${time}</span>
+    </div>
+  `;
 
-    // Send the user message to the backend or AI model to get the bot's response
-    // You can use AJAX request or WebSocket connection here
-    // Once you get the bot's response, create a new bubble element for the bot's response and append it to the response container
+  // Create a new message bubble for the chatbot's response
+  var botBubble = `
+    <div class="container">
+      <img src="https://www.w3schools.com/w3images/bot.png" alt="Avatar" class="right">
+      <p>${randomGreeting}</p>
+      <span class="time-left">${time}</span>
+    </div>
+  `;
 
-    // Example code for displaying the bot's response
-    var botMessage = "This is a test response from the bot."; // Replace with the actual bot response
-    var botBubble = document.createElement("div");
-    botBubble.innerHTML = botMessage;
-    botBubble.className = "container";
-    botBubble.style.backgroundColor = "#f1f0f0";
-    botBubble.style.float = "left";
-    botBubble.style.marginLeft = "10px";
-    botBubble.style.marginRight = "50%";
-    botBubble.style.transform = "translate(0%)";
+  // Add the user's message bubble to the response container
+  responseContainer.innerHTML += userBubble;
 
-    var botTimeSpan = document.createElement("span");
-    botTimeSpan.innerHTML = time;
-    botTimeSpan.className = "time-right";
+  // Wait for a short delay to simulate the chatbot "thinking"
+  setTimeout(function() {
+    // Add the chatbot's response bubble to the response container
+    responseContainer.innerHTML += botBubble;
+  }, 500);
 
-    botBubble.appendChild(botTimeSpan);
-    responseContainer.appendChild(botBubble);
+  // Clear the input field
+  document.getElementById("user-message").value = "";
 
-    // Clear the input field
-    document.getElementById("user-message").value = "";
-
-    return false; // Prevent the form from submitting and refreshing the page
+  // Prevent the form from submitting
+  return false;
 }
-
+        
+        
