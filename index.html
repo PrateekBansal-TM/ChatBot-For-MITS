@@ -1,35 +1,140 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Input and Output Responses</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>MITS ChatBot</title>
 	<style>
-		.column {
-			float: left;
-			width: 50%;
-			padding: 10px;
+		body {
+			background-color: #f1f1f1;
 		}
-
-		.row::after {
+		.container {
+			border: 2px solid #ccc;
+			background-color: #fff;
+			border-radius: 5px;
+			padding: 10px;
+			margin: 10px 0;
+			overflow: auto;
+			height: 300px;
+		}
+		.container::after {
 			content: "";
 			clear: both;
 			display: table;
 		}
+		.container img {
+			float: left;
+			max-width: 60px;
+			width: 100%;
+			margin-right: 20px;
+			border-radius: 50%;
+		}
+		.container img.right {
+			float: right;
+			margin-left: 20px;
+			margin-right:0;
+		}
+		.time-right {
+			float: right;
+			color: #aaa;
+		}
+		.time-left {
+			float: left;
+			color: #999;
+		}
+		.form-container {
+			border: 2px solid #ccc;
+			background-color: #fff;
+			border-radius: 5px;
+			padding: 10px;
+			margin: 10px 0;
+		}
+		.form-container input[type=text] {
+			border: none;
+			width: 100%;
+			padding: 10px;
+			margin: 5px 0;
+			border-radius: 3px;
+			background-color: #f1f1f1;
+		}
+		.form-container input[type=submit] {
+			border: none;
+			width: 100%;
+			padding: 10px;
+			margin: 5px 0;
+			border-radius: 3px;
+			background-color: #4CAF50;
+			color: #fff;
+			cursor: pointer;
+		}
+		.form-container input[type=submit]:hover {
+			background-color: #45a049;
+		}
 	</style>
 </head>
 <body>
-
-	<div class="row">
-		<div class="column">
-			<h2>Input Responses</h2>
-			<input type="text" id="input" name="input">
-		</div>
-		<div class="column">
-			<h2>Output Responses</h2>
-			<p id="output"></p>
-		</div>
+	<h2>Madhav Institute of Technology and Science</h2>
+	<div class="container">
+		<img src="https://upload.wikimedia.org/wikipedia/en/d/d6/Madhav_Institute_of_Technology_and_Science_logo.png" alt="Avatar">
+		<p>Hello. How can I help you today?</p>
+		<span class="time-right"></span>
 	</div>
 
-</body>
-</html>
+	<div id="response-container"></div>
+
+	<div class="form-container">
+		<form onsubmit="return sendMessage();">
+			<input type="text" placeholder="Type your message here..." id="user-message">
+			<input type="submit" value="Send">
+		</form>
+	</div>
+
+	<script>
+		function sendMessage() {
+    var userMessage = document.getElementById("user-message").value;
+    var responseContainer = document.getElementById("response-container");
+    var time = new Date().toLocaleTimeString();
+
+    var userBubble = document.createElement("div");
+    userBubble.innerHTML = userMessage;
+    userBubble.className = "container";
+    userBubble.style.backgroundColor = "#dcf8c6";
+    userBubble.style.float = "right";
+    userBubble.style.textAlign = "right";
+    userBubble.style.marginRight = "10px";
+    userBubble.style.marginLeft = "50%";
+    userBubble.style.transform = "translate(-50%)";
+
+    var timeSpan = document.createElement("span");
+    timeSpan.innerHTML = time;
+    timeSpan.className = "time-left";
+
+    userBubble.appendChild(timeSpan);
+    responseContainer.appendChild(userBubble);
+
+    // Send the user message to the backend or AI model to get the bot's response
+    // You can use AJAX request or WebSocket connection here
+    // Once you get the bot's response, create a new bubble element for the bot's response and append it to the response container
+
+    // Example code for displaying the bot's response
+    var botMessage = "This is a test response from the bot."; // Replace with the actual bot response
+    var botBubble = document.createElement("div");
+    botBubble.innerHTML = botMessage;
+    botBubble.className = "container";
+    botBubble.style.backgroundColor = "#f1f0f0";
+    botBubble.style.float = "left";
+    botBubble.style.marginLeft = "10px";
+    botBubble.style.marginRight = "50%";
+    botBubble.style.transform = "translate(0%)";
+
+    var botTimeSpan = document.createElement("span");
+    botTimeSpan.innerHTML = time;
+    botTimeSpan.className = "time-right";
+
+    botBubble.appendChild(botTimeSpan);
+    responseContainer.appendChild(botBubble);
+
+    // Clear the input field
+    document.getElementById("user-message").value = "";
+
+    return false; // Prevent the form from submitting and refreshing the page
+}
+
