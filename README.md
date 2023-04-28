@@ -1,4 +1,4 @@
-# Candice
+# MITS ChatBot
 Your personal ChatBot.
 
 ## Release History
